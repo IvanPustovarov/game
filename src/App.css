@@ -20,6 +20,7 @@ h1, h2, h3, h4, h5, h6{font-size: inherit; font-weight: inherit;}
   grid-template-columns: 100px 100px 100px;
   justify-content: center;
   gap: 10px;
+  background-color: rgb(188, 218, 245);
 }
 
 .square {

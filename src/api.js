@@ -2,15 +2,13 @@ const getRandomInt = (max) => {
   return Math.floor(Math.random() * max);
 };
 
-const stepCreator = (count, matrix) => {
+const createSteps = (stepNumber) => {
   const SIZE = 3;
   const DIRECTIONS = 4;
 
-  let initialPoint = { x: getRandomInt(SIZE), y: getRandomInt(SIZE) };
+  const initialPoint = { x: getRandomInt(SIZE), y: getRandomInt(SIZE) };
 
   const directionsArray = [];
-  let innerCount = 0;
-
   const finalPoint = Object.assign({}, initialPoint);
 
   const directions = {
@@ -22,16 +20,20 @@ const stepCreator = (count, matrix) => {
 
   const iteration = (way) => {
     directionsArray.push(way);
-    innerCount += 1;
   };
 
-  while (innerCount < count) {
+  const getRandomDirection = ()=> {
     const direction = getRandomInt(DIRECTIONS);
     const way = directions[direction];
+    return way;
+  }
+
+  while (directionsArray.length < stepNumber) {
+    const way = getRandomDirection();
     switch (way) {
       case "up":
         initialPoint.y++;
-        if (initialPoint.y < matrix) {
+        if (initialPoint.y < SIZE) {
           iteration(way);
           break;
         }
@@ -55,7 +57,7 @@ const stepCreator = (count, matrix) => {
         break;
       case "left":
         initialPoint.x++;
-        if (initialPoint.x < matrix) {
+        if (initialPoint.x < SIZE) {
           iteration(way);
           break;
         }
@@ -69,5 +71,5 @@ const stepCreator = (count, matrix) => {
   return { initialPoint, directionsArray, finalPoint };
 };
 
-export { stepCreator };
+export { createSteps };
 export { getRandomInt };

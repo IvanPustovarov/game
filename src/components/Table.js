@@ -1,7 +1,8 @@
 import React from "react";
 import "../App.css";
 
-const Table = ({ matrix, steps, final, initial }) => {
+const Table = ({ steps, final, initial }) => {
+  const SIZE = 3;
   const maze = [];
 
   const handleClick = (id) => {
@@ -19,9 +20,9 @@ const Table = ({ matrix, steps, final, initial }) => {
   };
 
   const renderMaze = () => {
-    let id = matrix * matrix;
-    for (let y = 0; y < matrix; y++) {
-      for (let x = 0; x < matrix; x++) {
+    let id = SIZE * SIZE;
+    for (let y = 0; y < SIZE; y++) {
+      for (let x = 0; x < SIZE; x++) {
         const title = React.createElement(
           "div",
           {
