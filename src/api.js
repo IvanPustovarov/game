@@ -18,55 +18,77 @@ const createSteps = (stepNumber) => {
     3: "left",
   };
 
-  const iteration = (way) => {
-    directionsArray.push(way);
-  };
-
-  const getRandomDirection = ()=> {
+  const getRandomDirection = () => {
     const direction = getRandomInt(DIRECTIONS);
     const way = directions[direction];
     return way;
-  }
+  };
+
+  const up = (point) => {
+    point.y++;
+    if (point.y < SIZE) {
+      return true;
+    }
+    point.y--;
+    return false;
+  };
+
+  const down = (point) => {
+    point.y--;
+    if (point.y >= 0) {
+      return true;
+    }
+    point.y++;
+    return false;
+  };
+
+  const right = (point) => {
+    point.x--;
+    if (point.x >= 0) {
+      return true;
+    }
+    point.x++;
+    return false;
+  };
+
+  const left = (point) => {
+    point.x++;
+    if (point.x < SIZE) {
+      return true;
+    }
+    point.x--;
+    return false;
+  };
+
+  const directionChanger = {
+    up: up,
+    down: down,
+    right: right,
+    left: left,
+  };
+
+  const getPointMove = (way) => {
+    if (way === "up") {
+      const wayUp = directionChanger.up(initialPoint);
+      if(wayUp)  directionsArray.push(way);
+    }
+    if (way === "down") {
+      const wayDown = directionChanger.down(initialPoint);
+      if(wayDown)  directionsArray.push(way);
+    }
+    if (way === "right") {
+      const wayRight = directionChanger.right(initialPoint);
+      if(wayRight)  directionsArray.push(way);
+    }
+    if (way === "left") {
+      const wayLeft = directionChanger.left(initialPoint);
+      if(wayLeft)  directionsArray.push(way);
+    }
+  };
 
   while (directionsArray.length < stepNumber) {
     const way = getRandomDirection();
-    switch (way) {
-      case "up":
-        initialPoint.y++;
-        if (initialPoint.y < SIZE) {
-          iteration(way);
-          break;
-        }
-        initialPoint.y--;
-        break;
-      case "down":
-        initialPoint.y--;
-        if (initialPoint.y >= 0) {
-          iteration(way);
-          break;
-        }
-        initialPoint.y++;
-        break;
-      case "right":
-        initialPoint.x--;
-        if (initialPoint.x >= 0) {
-          iteration(way);
-          break;
-        }
-        initialPoint.x++;
-        break;
-      case "left":
-        initialPoint.x++;
-        if (initialPoint.x < SIZE) {
-          iteration(way);
-          break;
-        }
-        initialPoint.x--;
-        break;
-
-      default:
-        break;
-    }
+    getPointMove(way);
   }
   return { initialPoint, directionsArray, finalPoint };
 };
